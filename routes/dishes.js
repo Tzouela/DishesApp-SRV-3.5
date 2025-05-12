@@ -37,4 +37,16 @@ router.post('/', jsonParser, async function (req, res, next) {
 	}
 });
 
+/* DELETE delete a dish by dish name */
+router.delete('/', jsonParser, async function (req, res, next) {
+	try {
+			const { Name } = req.body;
+			// Call a function in your service to delete the dish by name
+			const result = await dishesService.deleteDish(Name);
+			res.status(200).send(result);
+	} catch (error) {
+			res.status(500).send({ statuscode: 500, error: error.message });
+	}
+});
+
 module.exports = router;

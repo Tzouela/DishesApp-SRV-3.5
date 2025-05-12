@@ -8,8 +8,8 @@ var session = require('express-session');
 
 var dishesRouter = require('./routes/dishes');
 
-var db = require("./models");
-db.sequelize.sync({ force: false })
+// var db = require("./models");
+// db.sequelize.sync({ force: false })
 
 var app = express();
 

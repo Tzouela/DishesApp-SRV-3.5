@@ -56,5 +56,31 @@ class DishesService {
 		let Dishes = await this.client.query(`SELECT Dishes.Id, Dishes.Name as DishName, Countries.Name as Country FROM Dishes JOIN Countries on Dishes.CountryId = Countries.Id WHERE Dishes.name = '${dishname}'`, { type: QueryTypes.SELECT });
 		return Dishes;
 	}
+
+	async deleteDish(dishName) {
+		try {
+			// Find the dish by name
+			const dish = await this.Dishes.findOne({
+				where: {
+					Name: dishName
+				}
+			});
+	
+			if (!dish) {
+				return { message: 'Dish not found' };
+			}
+	
+			// Delete the dish
+			await this.Dishes.destroy({
+				where: {
+					Name: dishName
+				}
+			});
+	
+			return { message: 'Dish deleted successfully' };
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
 }
 module.exports = DishesService;
